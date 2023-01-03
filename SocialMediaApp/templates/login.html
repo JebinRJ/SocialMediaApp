@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+<html lang="en">
+<head>
+    <title>Login Page</title>
+</head>
+
+<body>
+
+{% block content %}
+<div class="container">
+    <h2>Login</h2>
+<hr>
+</div>
+
+
+<div class="container">
+    <form class="form" method="POST">
+    {% csrf_token %}
+        <div>
+            <label class="form-abel">Username</label>
+            <input type="text" name="username" placeholder="Enter Username" required="">
+        </div>
+        <br>
+        <div>
+            <label class="form-abel">Password</label>
+            <input type="password" name="password" placeholder="Enter Password" required="">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <p>New User Please Sign Up? <a href="{% url 'signup' %}">Signup</a></p>
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+</div>
+
+{% endblock content %}
+
+</body>
+</html>

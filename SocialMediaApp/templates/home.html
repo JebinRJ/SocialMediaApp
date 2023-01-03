@@ -1,0 +1,89 @@
+{% extends 'main.html' %}
+<html lang="en">
+<head>
+    <title>Home Page</title>
+</head>
+
+<body>
+
+{% block content %}
+<div class="container">
+    <h2>Home</h2>
+<hr>
+</div>
+{% for message in messages %}
+    {{message}}
+    {% endfor %}
+<div class="container">
+    <div>
+        <h2 class="font-semibold text-lg">Users Suggetions</h2>
+    </div>
+    <div>
+        {% for suggestion in suggestions_username_profile_list %}
+        <div class="flex items-center justify-between py-3">
+            <div class="flex flex-1 items-center space-x-4">
+                <a href="/profile/{{suggestion.user}}">
+                    <img src="{{suggestion.profileimg.url}}" class="bg-gray-200 rounded-full w-10 h-10" width="100px" height="100px">
+                </a>
+                <div class="flex flex-col">
+                    <h5 class="block capitalize font-semibold"> {{suggestion.user}} </h5>
+                    <br>
+                    <span class="block capitalize text-sm"> {{suggestion.bio}} </span>
+                </div>
+            </div>
+            <a href="/profile/{{suggestion.user}}"> View User </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container" style="margin:200px">
+    <div class="container m-auto">
+        {% for post in post_objects reversed %}
+        <div class="bg-white shadow rounded-md  -mx-2 lg:mx-0">
+            <div class="flex justify-between items-center px-4 py-3">
+                <div class="flex flex-1 items-center space-x-4">
+                    <span class="block font-semibold "><a href="/profile/{{post.user}}">@{{post.user}}</a></span>
+                    <a href="{% url 'delete' post.id %}"  style="margin:350px;">
+                    <i class="fa fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <a href="{{post.image.url}}">
+                    <img src="{{post.image.url}}" height="450px" width="450px" alt="image">
+                </a>
+            </div>
+
+            <div>
+                <section>
+                    <a href="/like-post?post_id={{post.id}}" class="flex items-center space-x-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25" class="">
+                                                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                            </svg>
+                </a>
+                <a href="{{post.image.url}}" download style="margin:400px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M19 13v5c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-5c0-.55-.45-1-1-1s-1 .45-1 1v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6c0-.55-.45-1-1-1s-1 .45-1 1zm-6-.33l1.88-1.88c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-3.59 3.59c-.39.39-1.02.39-1.41 0L7.7 12.2c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L11 12.67V4c0-.55.45-1 1-1s1 .45 1 1v8.67z"/></svg>
+                </a>
+
+                </section>
+            </div>
+            {% if post.no_of_likes == 0 %}
+            <p>{{post.no_of_likes}} Likes</p>
+            {% elif post.no_of_likes == 1 %}
+            <p>{{post.no_of_likes}} Like</p>
+            {% else %}
+            <p>{{post.no_of_likes}} Likes</p>
+            {% endif %}
+            <h6 style="color:Black">
+                Description : {{post.caption}}
+            </h6>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock content %}
+
+</body>
+</html>

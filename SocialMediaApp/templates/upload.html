@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+<html lang="en">
+<head>
+    <title>Login Page</title>
+</head>
+
+<body>
+
+{% block content %}
+<div class="container">
+    <h2>Post Upload Page</h2>
+<hr>
+</div>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+    <div class="container">
+        <p class="my-3 leading-6">Upload Pics</p>
+    <div uk-form-custom>
+        <input type="file" name="image_upload">
+        <br>
+        <br>
+        <textarea name="caption" placeholder="caption.."></textarea>
+        <br>
+        <br>
+        <button class="btn btn-info" type="submit">Upload</button>
+
+    </div>
+    </div>
+</form>
+{% for message in messages %}
+
+{{message}}
+{% endfor %}
+</div>
+
+{% endblock content %}
+
+</body>
+</html>
